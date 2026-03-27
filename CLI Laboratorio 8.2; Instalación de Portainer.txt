@@ -1,0 +1,31 @@
+Comandos utilizados, práctica laboratorio 8.2; Cloud Computing y Contenerización.
+
+Instalación de Portainer.
+
+============================================
+
+
+https://docs.portainer.io/start/install-ce/server/docker/linux
+
+#Instalar Portainer
+
+sudo docker volume create portainer_data
+
+sudo docker run -d -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts
+
+
+docker ps -a
+
+#En el navegador de nuestra máquina:
+
+https://127.0.0.1:9443
+
+#Una vez creado nuestro usuario e iniciado en la interfaz de Portainer:
+
+Add Environments >Docker Standalone >Start Wizard
+
+#Copia el comando para el agente, creado por el Wizard, y pégalo en la CLI de la máquina.
+
+#Devuelta en Portainer, llenamos los apartados "Name" y "Environment address" (En el Environment address colocaremos la ip de la máquina:puerto del agente. Ej: 12.168.1.100:9001). Luego, click en "Connect", y "Close".
+
+Click en el Environment creado >Containers >Nginx >Stop
