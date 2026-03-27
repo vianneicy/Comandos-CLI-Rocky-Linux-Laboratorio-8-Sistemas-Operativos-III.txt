@@ -1,0 +1,38 @@
+Extra: Cups en Docker
+
+================================
+
+# Instalar complementos de dnf para manejar repositorios
+sudo dnf -y install dnf-plugins-core
+
+# Agregar el repositorio oficial de Docker para RHEL/Rocky Linux
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
+# Instalar Docker y sus componentes
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Habilitar e iniciar el servicio Docker
+sudo systemctl enable --now docker
+
+# Buscar imágenes disponibles de CUPS en Docker Hub
+docker search cups
+
+# Descargar la imagen de CUPS (olbat/cupsd)
+docker pull olbat/cupsd
+
+# Crear un directorio local para guardar la configuración de CUPS
+sudo mkdir -p /home/cups-config
+
+# Ejecutar el contenedor de CUPS mapeando el puerto 631 y el volumen de configuración
+sudo docker run -d \
+  --name cups-server \
+  -p 631:631 \
+  -v /home/cups-config:/etc/cups \
+  --restart unless-stopped \
+  olbat/cupsd
+
+# Verificar que el contenedor está en ejecución
+docker ps
+
+# Abrir en el navegador la interfaz de CUPS
+# URL: http://127.0.0.1:631
