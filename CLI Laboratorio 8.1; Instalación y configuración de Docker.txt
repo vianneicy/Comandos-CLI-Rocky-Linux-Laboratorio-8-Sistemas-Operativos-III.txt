@@ -1,0 +1,66 @@
+Comandos utilizados, práctica laboratorio 8.1; Cloud Computing y Contenerización.
+
+
+Instalación y configuración de Docker.
+
+============================================
+
+https://docs.docker.com/engine/install/rhel/
+
+
+#Desinstalar versiones anteriores:
+
+sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine \
+                  podman \
+                  runc
+
+
+#Instalar utilizando repositorio RPM
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl enable --now docker
+sudo systemctl start docker
+sudo systemctl status docker
+
+sudo docker run hello-world
+docker --version
+
+#Buscar la imagen de Nginx y descargarla:
+
+docker search nginx
+docker pull nginx
+
+sudo docker images
+
+sudo mkdir /home/website
+cd /home/website/
+nano index.html >
+
+<html>
+ <head>
+  <title>DOCKER x NGINX</title>
+ </head>
+ <body>
+  <H3>Vianne Feliz<br>
+  Matrícula: 2025-0860</H3>
+ </body>
+</html>
+
+sudo docker run -d -p 8888:80 -v /home/website:/usr/share/nginx/html/ nginx
+
+docker ps -a
+
+#En el navegador de nuestra máquina:
+
+127.0.0.1:8888
